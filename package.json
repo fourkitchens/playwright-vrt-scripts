@@ -1,5 +1,5 @@
 {
-  "name": "@fourkitchens/playwright-vrt-scripts",
+  "name": "@fkbender/playwright-vrt-scripts",
   "version": "1.0.0-alpha",
   "description": "Reusable Playwright VRT runners for local environments and CircleCI Pantheon workflows",
   "license": "ISC",
@@ -7,9 +7,9 @@
   "type": "commonjs",
   "main": "index.js",
   "bin": {
-    "playwright-vrt": "./scripts/vrt.js",
-    "playwright-vrt-local": "./scripts/vrt.local.js",
-    "playwright-vrt-ci": "./scripts/vrt.ci.js"
+    "playwright-vrt": "scripts/vrt.js",
+    "playwright-vrt-local": "scripts/vrt.local.js",
+    "playwright-vrt-ci": "scripts/vrt.ci.js"
   },
   "exports": {
     ".": "./index.js",
