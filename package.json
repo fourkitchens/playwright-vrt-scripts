@@ -1,6 +1,6 @@
 {
   "name": "@fourkitchens/playwright-vrt-scripts",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha",
   "description": "Reusable Playwright VRT runners for local environments and CircleCI Pantheon workflows",
   "license": "ISC",
   "author": "Rodrigo Espinoza",
