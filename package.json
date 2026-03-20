@@ -1,0 +1,46 @@
+{
+  "name": "@fourkitchens/playwright-vrt-scripts",
+  "version": "1.0.0",
+  "description": "Reusable Playwright VRT runners for local environments and CircleCI Pantheon workflows",
+  "license": "ISC",
+  "author": "Rodrigo Espinoza",
+  "type": "commonjs",
+  "main": "index.js",
+  "bin": {
+    "playwright-vrt": "./scripts/vrt.js",
+    "playwright-vrt-local": "./scripts/vrt.local.js",
+    "playwright-vrt-ci": "./scripts/vrt.ci.js"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "scripts",
+    "index.js",
+    "README.md"
+  ],
+  "scripts": {
+    "check": "node -e \"const pkg = require('./package.json'); console.log(JSON.stringify({ name: pkg.name, version: pkg.version, bin: pkg.bin }, null, 2));\"",
+    "test": "npm run check"
+  },
+  "keywords": [
+    "playwright",
+    "visual-regression-testing",
+    "vrt",
+    "pantheon",
+    "circleci"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "@playwright/test": ">=1.48.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
