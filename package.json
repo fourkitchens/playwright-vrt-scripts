@@ -6,6 +6,9 @@
   "author": "Rodrigo Espinoza",
   "type": "commonjs",
   "main": "index.js",
+  "repository": {
+    "url": "https://github.com/fourkitchens/playwright-vrt-scripts"
+  },
   "bin": {
     "playwright-vrt": "scripts/vrt.js",
     "playwright-vrt-local": "scripts/vrt.local.js",
