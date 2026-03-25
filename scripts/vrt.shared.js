@@ -144,6 +144,25 @@ function getPlaywrightConfigPath() {
   return path.resolve(getWorkingDirectory(), configPath);
 }
 
+function getShardArguments() {
+  const totalShards = process.env.PLAYWRIGHT_TOTAL_SHARDS || process.env.CIRCLE_NODE_TOTAL;
+  let shard = process.env.PLAYWRIGHT_SHARD;
+
+  if (!shard && process.env.CIRCLE_NODE_INDEX !== undefined && totalShards) {
+    const nodeIndex = Number(process.env.CIRCLE_NODE_INDEX);
+
+    if (Number.isInteger(nodeIndex) && nodeIndex >= 0) {
+      shard = String(nodeIndex + 1);
+    }
+  }
+
+  if (!shard || !totalShards) {
+    return [];
+  }
+
+  return ['--shard', `${shard}/${totalShards}`];
+}
+
 function runPlaywrightPass({
   label,
   baseUrl,
@@ -162,6 +181,7 @@ function runPlaywrightPass({
   }
 
   args.push('--grep', tag);
+  args.push(...getShardArguments());
 
   if (updateSnapshots) {
     args.push('--update-snapshots');
