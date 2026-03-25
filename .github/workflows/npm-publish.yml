@@ -28,6 +28,13 @@ jobs:
           node-version: 24
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm publish
+      - name: Publish package
+        run: |
+          TAG=$(node -p "const v = require('./package.json').version; const m = v.match(/-([0-9A-Za-z-]+)/); m ? m[1] : ''")
+          if [ -n "$TAG" ]; then
+            npm publish --tag "$TAG"
+          else
+            npm publish
+          fi
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
