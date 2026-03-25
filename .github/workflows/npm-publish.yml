@@ -21,7 +21,6 @@ jobs:
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm whoami
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
@@ -29,7 +28,7 @@ jobs:
         run: |
           TAG=$(node -p "const v = require('./package.json').version; const prerelease = v.split('-')[1]; prerelease ? prerelease.split('.')[0] : ''")
           if [ -n "$TAG" ]; then
-            npm publish --tag "$TAG"
+            npm publish --provenance --access public --tag "$TAG"
           else
-            npm publish
+            npm publish --provenance --access public
           fi
