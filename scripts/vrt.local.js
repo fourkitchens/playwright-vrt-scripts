@@ -1,48 +1,8 @@
 #!/usr/bin/env node
 
-const readline = require('readline');
 const { inferPantheonTarget, loadDotenv, runPlaywrightPass, wakePantheonEnv } = require('./vrt.shared');
 
 loadDotenv();
-
-function isInteractive() {
-  return Boolean(process.stdin.isTTY && !process.env.CI);
-}
-
-function ask(question, defaultValue) {
-  if (!isInteractive()) {
-    return Promise.resolve(defaultValue);
-  }
-
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-
-  const hint = defaultValue ? ` [${defaultValue}]` : '';
-  return new Promise((resolve) => {
-    rl.question(`${question}${hint}: `, (answer) => {
-      rl.close();
-      const trimmed = answer.trim();
-      resolve(trimmed || defaultValue);
-    });
-  });
-}
-
-async function resolveUrl(promptLabel, initialValue) {
-  if (!isInteractive()) {
-    return initialValue;
-  }
-
-  if (initialValue) {
-    const override = await ask(`Override ${promptLabel}? (y/N)`, 'N');
-    if (!override.toLowerCase().startsWith('y')) {
-      return initialValue;
-    }
-  }
-
-  return ask(promptLabel, initialValue);
-}
 
 function normalizeTarget(url, explicitEnv, explicitSite) {
   const inferred = inferPantheonTarget(url);
@@ -54,14 +14,8 @@ function normalizeTarget(url, explicitEnv, explicitSite) {
 }
 
 async function getTargets() {
-  const baselineUrl = await resolveUrl(
-    'Baseline URL',
-    process.env.BASELINE_URL || process.env.VRT_BASELINE_URL
-  );
-  const candidateUrl = await resolveUrl(
-    'Candidate URL',
-    process.env.CANDIDATE_URL || process.env.VRT_CANDIDATE_URL
-  );
+  const baselineUrl = process.env.BASELINE_URL || process.env.VRT_BASELINE_URL;
+  const candidateUrl = process.env.CANDIDATE_URL || process.env.VRT_CANDIDATE_URL;
 
   if (!baselineUrl || !candidateUrl) {
     console.error(
