@@ -145,7 +145,7 @@ npm run vrt:local
 Non-interactive:
 
 ```bash
-BASELINE_URL="http://mcny.ddev.site" \
+BASELINE_URL="http://test.ddev.site" \
 CANDIDATE_URL="https://feature-branch-example.pantheonsite.io" \
 npm run vrt:local
 ```
